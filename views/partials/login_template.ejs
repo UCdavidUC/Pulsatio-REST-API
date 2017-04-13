@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title>Pulsatio</title>
+        <%- include('header') %>
+    </head>
+    <body>
+        <%- include('../external/navigation') %>
+        <ng-view></ng-view>
+        <!-- MD Login Template -->
+        <script type="text/ng-template" id="/login.html">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Login</h1>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="username" ng-model="medico._email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Contraseña</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="password" ng-model="medico.contrasena"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-3">
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <a href="#/register" class="btn btn-warning" value="register">Registrarse</a>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button ng-click="find()" class="btn btn-success">Entrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <!-- MD Register Template -->
+        <script type="text/ng-template" id="/register.html">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Registro</h1>
+                </div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" id="email" ng-model="newMedico._email"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasena" class="col-sm-3 control-label">Contraseña</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="contrasena" ng-model="newMedico.contrasena"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmacion" class="col-sm-3 control-label">Confirma contraseña</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" id="confirmacion" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cedula" class="col-sm-3 control-label">Cédula</label>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" id="cedula" ng-model="newMedico.cedula" maxlength="7"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre" class="col-sm-3 control-label">Nombre</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="nombre" ng-model="newMedico.nombre"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido_p" class="col-sm-3 control-label">Apellido Paterno</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="apellido_p" ng-model="newMedico.apellido_p"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido_m" class="col-sm-3 control-label">Apellido Materno</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-5">
+                        <div class="btn-group btn-group-justified" role="group">
+                            <div class="btn-group" role="group">
+                                <button ng-click="save()" class="btn btn-default">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <%- include('index_controller') %>
+</html>
