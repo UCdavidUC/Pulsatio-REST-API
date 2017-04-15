@@ -140,7 +140,12 @@
                         if(!$scope.newMedico || $scope.newMedico.length < 1) return;
                         var medico = new Medicos({
                             _id: newMedico._email, 
-                            contrasena: newMedico.contrasena,
+                            contrasena: function() {
+                                var crypto = require('crypto');
+                                pwd = newMedico.contrasena;
+                                var hash = crypto.createHash('sha256').update(pwd).digest('base64');
+                                return fn(null, hash);
+                            },
                             cedula: newMedico.cedula,
                             nombre: newMedico.nombre,
                             apellido_p: newMedico.apellido_p,
