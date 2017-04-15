@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label for="username" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="username" ng-model="medico._email"/>
+                            <input type="text" class="form-control" id="username" ng-model="medico.username"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            <input type="email" class="form-control" id="email" ng-model="newMedico._email"/>
+                            <input type="email" class="form-control" id="email" ng-model="newMedico.email"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -100,34 +100,7 @@
             </div>
         </script>
 
-        <script>
-            /*
-            angular.module('app', [])
-                .controller("Register", function($scope, $http, createPOSTRequest) {
-                    $scope.newMedico = '';
-                    $scope.save = function(newMedico) {
-                        var request = $http({
-                            method = 'post',
-                            url = "http://127.0.0.1:27017",
-                            transformRequest = createPOSTRequest,
-                            data: {
-                                _email: newMedico._email, 
-                                contrasena: newMedico.contrasena,
-                                cedula: newMedico.cedula,
-                                nombre: newMedico.nombre,
-                                apellido_p: newMedico.apellido_p,
-                                apellido_m: newMedico.apellido_m
-                            }
-                        });
-
-                        request.success(function (html) {
-                            $scope.newMedico = html;
-                        })
-
-                    };
-                });
-
-        */
+        <script type="text/javascript">
             angular.module('app', ['ngRoute', 'ngResource'])
                 .factory('Medicos', ['$resource', function($resource){
                     return $resource('/medicos/:_email', null, {
@@ -139,13 +112,8 @@
                     $scope.save = function(newMedico) {
                         if(!$scope.newMedico || $scope.newMedico.length < 1) return;
                         var medico = new Medicos({
-                            _id: newMedico._email, 
-                            contrasena: function() {
-                                var crypto = require('crypto');
-                                pwd = newMedico.contrasena;
-                                var hash = crypto.createHash('sha256').update(pwd).digest('base64');
-                                return fn(null, hash);
-                            },
+                            email: newMedico.email, 
+                            contrasena: CryptoJS.AES.encrypt(newMedico.contrasena, 'quenya-256').toString(),
                             cedula: newMedico.cedula,
                             nombre: newMedico.nombre,
                             apellido_p: newMedico.apellido_p,

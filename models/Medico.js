@@ -1,8 +1,20 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+      Schema = mongoose.Schema,
+      bcrypt = require(bcrypt),
+      SALT_WORK_FACTOR = 10;
 
-var MedicoSchema = new mongoose.Schema({
-    _id      : String,
-    contrasena  : String,
+var MedicoSchema = new Schema({
+    _email       : {
+        type        : String,
+        required    : true,
+        index       : {
+            unique  : true
+        }
+    },
+    contrasena  : {
+        type        : String,
+        required    : true
+    },
     cedula      : String,
     nombre      : String,
     apellido_p  : String,
@@ -39,4 +51,26 @@ var MedicoSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Medico', MedicoSchema);
+// Medico password encryption
+MedicoSchema.pre(save, function(next) {
+    var medico = this;
+    if (!medico.isModified('contrasena')) return next();
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if(err) return next(err);
+        bcrypt.hash(medico.contrasena, salt, function(err, hash) {
+            if(err) return next(err);
+            medico.contrasena = hash;
+            next();
+        });
+    });
+});
+
+// Medico Authentication
+MedicoSchema.methods.comparePassword() = function(candidatePassword, cb) {
+    bcrypt.compare(candidatePassword, this.contrasena, function(err, isMatch) {
+        if(err) return cb(err);
+        cb(null, isMatch);
+    })
+}
+
+module.exports = mongoose.model('Medico&', MedicoSchema);

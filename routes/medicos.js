@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose');
 var Medico = require('../models/Medico.js');
 
 /* GET medicos list. */
