@@ -6,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
+var uri = 'mongodb://localhost/pulsatiorestapi';
 
-mongoose.connect('mongodb://localhost/pulsatiorestapi')
-  .then(() => console.log('Database connection successful'))
+mongoose.Promise = global.Promise;
+mongoose.connect(uri)
+  .then(() => console.log('success'))
   .catch((err) => console.log(err));
 
 var index = require('./routes/index');

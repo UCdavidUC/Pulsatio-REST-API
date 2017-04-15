@@ -1,12 +1,12 @@
 var mongoose = require('mongoose');
 
 var MedicoSchema = new mongoose.Schema({
+    _id      : String,
+    contrasena  : String,
     cedula      : String,
     nombre      : String,
     apellido_p  : String,
     apellido_m  : String,
-    _email      : String,
-    contrasena  : String,
     updated_at  : {
         type: Date, 
         default: Date.now

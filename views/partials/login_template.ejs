@@ -92,7 +92,7 @@
                     <div class="col-sm-2 col-sm-offset-5">
                         <div class="btn-group btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button ng-click="save()" class="btn btn-default">Enviar</button>
+                                <button ng-click="save(newMedico)" class="btn btn-default">Enviar</button>
                             </div>
                         </div>
                     </div>
@@ -100,5 +100,82 @@
             </div>
         </script>
 
-        <%- include('index_controller') %>
+        <script>
+            /*
+            angular.module('app', [])
+                .controller("Register", function($scope, $http, createPOSTRequest) {
+                    $scope.newMedico = '';
+                    $scope.save = function(newMedico) {
+                        var request = $http({
+                            method = 'post',
+                            url = "http://127.0.0.1:27017",
+                            transformRequest = createPOSTRequest,
+                            data: {
+                                _email: newMedico._email, 
+                                contrasena: newMedico.contrasena,
+                                cedula: newMedico.cedula,
+                                nombre: newMedico.nombre,
+                                apellido_p: newMedico.apellido_p,
+                                apellido_m: newMedico.apellido_m
+                            }
+                        });
+
+                        request.success(function (html) {
+                            $scope.newMedico = html;
+                        })
+
+                    };
+                });
+
+        */
+            angular.module('app', ['ngRoute', 'ngResource'])
+                .factory('Medicos', ['$resource', function($resource){
+                    return $resource('/medicos/:_email', null, {
+                        'update': { method: 'PUT' }
+                    });
+                }])
+                .controller('MDRegisterController', ['$scope', 'Medicos', function($scope, Medicos){
+                    $scope.medicos = Medicos.query();
+                    $scope.save = function(newMedico) {
+                        if(!$scope.newMedico || $scope.newMedico.length < 1) return;
+                        var medico = new Medicos({
+                            _id: newMedico._email, 
+                            contrasena: newMedico.contrasena,
+                            cedula: newMedico.cedula,
+                            nombre: newMedico.nombre,
+                            apellido_p: newMedico.apellido_p,
+                            apellido_m: newMedico.apellido_m
+                        });
+                        medico.$save(function(){
+                            $scope.medicos.push(medico);
+                            $scope.newMedico = '';
+                        });
+                    }
+                }])
+                .controller('MDLoginController', ['$scope', '$routeParams', 'Medico', '$location', function($scope, $routeParams, Medico, $location) {
+                    $scope.medico = Medicos.get({
+                        id: $routeParams.id
+                    });
+                    console.log('Here');
+                    $scope.find = function() {
+                        Medico.get({
+                            email: $scope.medico._email, 
+                            contrasena: $scope.medico.contrasena
+                        }, $scope.medico, function() {
+                            $location.url('/');
+                            console.log('searching user');
+                        });
+                    };
+                }])
+                .config(['$routeProvider', function($routeProvider) {
+                    $routeProvider.when('/register', {
+                        templateUrl: '/register.html',
+                        controller: 'MDRegisterController'
+                    }).when('/', {
+                        templateUrl: '/login.html',
+                        controller: 'MDLoginController'
+                    });
+                }]);
+        </script>
+    </body>
 </html>
