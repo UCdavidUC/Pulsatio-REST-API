@@ -5,16 +5,19 @@ var Medico = require('../models/Medico.js');
 
 /* GET medicos list. */
 router.get('/', function(req, res, next) {
-  Medico.find(function(err, medicos) {
+  Medico.find(function(err, post) {
     if (err) return next(err);
-    res.json(medicos);
+    res.json(post);
   });
 });
 
 /* POST /medicos */
 router.post('/', function(req, res, next) {
   Medico.create(req.body, function(err, post) {
-    if(err) return next(err);
+    if(err) {
+      console.log(err);
+      return next(err);
+    } 
     res.json(post);
   });
 });

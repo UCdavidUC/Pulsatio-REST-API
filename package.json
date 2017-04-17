@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
@@ -15,6 +16,7 @@
     "express": "~4.15.2",
     "mongoose": "^4.9.3",
     "morgan": "~1.8.1",
+    "node-gyp": "^3.6.0",
     "serve-favicon": "~2.4.2"
   }
 }

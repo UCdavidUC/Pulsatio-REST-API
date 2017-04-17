@@ -46,29 +46,32 @@
                 <div class="page-header">
                     <h1>Registro</h1>
                 </div>
-                <div class="form-horizontal">
+                <form class="form-horizontal" id="register-form">
                     <div class="form-group">
                         <label for="email" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            <input type="email" class="form-control" id="email" ng-model="newMedico.email"/>
+                            <input type="text" class="form-control" id="email" ng-model="newMedico.email" required="required" />
+                            <span id="emailAlert"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="contrasena" class="col-sm-3 control-label">Contraseña</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="contrasena" ng-model="newMedico.contrasena"/>
+                            <input type="password" class="form-control" id="contrasena" ng-model="newMedico.contrasena" required="required" />
+                            <span id="passwordAlert"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="confirmacion" class="col-sm-3 control-label">Confirma contraseña</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="confirmacion" />
+                            <input type="password" class="form-control" id="confirmacion" ng-model="newMedico.confirmacion" required="required" />
+                            <span id="passwordConfirmationAlert"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="cedula" class="col-sm-3 control-label">Cédula</label>
                         <div class="col-sm-2">
-                            <input type="text" class="form-control" id="cedula" ng-model="newMedico.cedula" maxlength="7"/>
+                            <input type="text" class="form-control" id="cedula" ng-model="newMedico.cedula" maxlength="7" required="required"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -89,14 +92,26 @@
                             <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="apellido_m" class="col-sm-3 control-label">Apellido Materno</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido_m" class="col-sm-3 control-label">Apellido Materno</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
+                        </div>
+                    </div>
                     <div class="col-sm-2 col-sm-offset-5">
                         <div class="btn-group btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button ng-click="save(newMedico)" class="btn btn-default">Enviar</button>
+                                <button type="submit" ng-model="newMedico" ng-click="save(newMedico)" class="btn btn-default" disa>Enviar</button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </script>
 
@@ -109,11 +124,49 @@
                 }])
                 .controller('MDRegisterController', ['$scope', 'Medicos', function($scope, Medicos){
                     $scope.medicos = Medicos.query();
+
+                    // Email validation
+                    $("#email").keyup(function emailValidation() {
+                        var email = $("#email").val();
+                        var pwd = $('#contrasena');
+                        var cf = $('#confirmacion');
+                        var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(regex.test(email)) {
+                            $('#emailAlert').html('Email válido.');
+                            $('#emailAlert').css('color', 'green');
+                        } else {
+                            $('#emailAlert').html('<strong>Error</strong>: Verifique que su correo electrónico esté escrito correctamente: ' + email);
+                            $('#emailAlert').css('color', 'red');
+                        }
+                    });
+
+                    // Password string length validation
+                    $('#contrasena').keyup(function passwordConforms() {
+                        
+                    });
+
+                    // Password match validation
+                    $('#confirmacion').keyup(function passwordValidation() {
+                        var pwd = $('#contrasena').val();
+                        console.log(pwd);
+                        var conf = $('#confirmacion').val();
+                        if(pwd===conf) {
+                            $('#passwordConfirmationAlert').html('Las contrase&ntilde;as coinciden.');
+                            $('#passwordConfirmationAlert').css('color', 'green');
+                        } else {
+                            $('#passwordConfirmationAlert').html('<strong>Error</strong>: Las contrase&ntilde;as no coinciden.');
+                            $('#passwordConfirmationAlert').css('color', 'red');
+                        }
+                    });
+
+                    // Save medico into database
                     $scope.save = function(newMedico) {
+                        $scope.pwd = newMedico.contrasena;
+                        $scope.pwd_confirmation = newMedico.confirmacion;
                         if(!$scope.newMedico || $scope.newMedico.length < 1) return;
                         var medico = new Medicos({
                             email: newMedico.email, 
-                            contrasena: CryptoJS.AES.encrypt(newMedico.contrasena, 'quenya-256').toString(),
+                            contrasena: newMedico.contrasena,
                             cedula: newMedico.cedula,
                             nombre: newMedico.nombre,
                             apellido_p: newMedico.apellido_p,
