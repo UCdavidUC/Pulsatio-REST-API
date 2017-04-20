@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 /* GET login page */
 router.get('/login', function(req, res, next) {
-  res.render('partials/login_template');
+  res.render('external/start');
 });
 
 module.exports = router;

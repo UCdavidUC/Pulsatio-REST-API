@@ -15,12 +15,9 @@ var MedicoSchema = new Schema({
         default: Date.now
     },
     alma_mater      : Number,
-    especialidad    : {
-        _id         : Number,
-        nombre      : String,
-        descripcion : String,
-        tipo        : String
-    },
+    especialidad    : [{
+        id_especialidad     : String,
+    }],
     subespecialidad : {
         _id         : Number,
         nombre      : String,
