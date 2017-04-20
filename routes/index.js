@@ -11,4 +11,29 @@ router.get('/login', function(req, res, next) {
   res.render('external/start');
 });
 
+/* GET admin page */
+router.get('/admin', function(req, res, next) {
+  res.render('admin/admin_portal', { title: 'Portal Administrativo'} )
+});
+
+/* GET medicos page */
+router.get('/show_medicos', function(req, res, next) {
+  res.render('admin/medicos/show_medicos', { title: 'M&eacute;dicos' } )
+});
+
+/* GET cedes hospitalarias page */
+router.get('/show_cedes', function(req, res, next) {
+  res.render('admin/cedes_hospitalarias/show_cedes', { title: 'Cedes Hospitalarias' } )
+});
+
+/* GET universidades page */
+router.get('/show_universidades', function(req, res, next) {
+  res.render('admin/universidades/show_universidades', { title: 'Universidades' } )
+});
+
+/* GET universidades page */
+router.get('/dashboard', function(req, res, next) {
+  res.render('internal/dashboard', { title: 'Dashboard' } )
+});
+
 module.exports = router;

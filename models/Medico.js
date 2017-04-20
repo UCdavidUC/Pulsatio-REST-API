@@ -11,21 +11,18 @@ var MedicoSchema = new Schema({
     apellido_p  : String,
     apellido_m  : String,
     updated_at  : {
-        type: Date, 
-        default: Date.now
+        type        : Date, 
+        default     : Date.now
     },
     alma_mater      : Number,
     especialidad    : [{
-        id_especialidad     : String,
+        id_especialidad     : String
     }],
-    subespecialidad : {
-        _id         : Number,
-        nombre      : String,
-        descripcion : String,
-        tipo        : String
-    },
+    subespecialidad : [{
+        id_subespecialidad: String
+    }],
     cedeHospitalaria : Number,
-    comentario  : {
+    comentarios     : [{
         _id         : String,
         fecha_hora  : {
             type    : Date,
@@ -36,7 +33,7 @@ var MedicoSchema = new Schema({
         rating      : Number,
         useful      : Number,
         unuseful    : Number
-    }
+    }]
 });
 
 // Medico password encryption

@@ -12,6 +12,27 @@ var PacienteSchema = new mongoose.Schema({
         type    : Date, 
         default : Date.now
     },
+    ranges: [
+        { 
+            ranges: [
+                {
+                    timestmpt : String,
+                    min : Number,
+                    max: Number
+                }
+            ]
+        }
+    ],
+    averages: [
+        {
+            ranges: [
+                {
+                    timestmpt : String,
+                    average : Number
+                }
+            ]
+        }
+    ],
     expediente  : {
         _id             : String,
         fecha_nac       : Date,
