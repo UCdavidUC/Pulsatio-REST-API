@@ -36,4 +36,9 @@ router.get('/dashboard', function(req, res, next) {
   res.render('internal/dashboard', { title: 'Dashboard' } )
 });
 
+/* GET privacy policy */
+router.get('/privacy', function(req, res, next) {
+  res.render('legal/licencing', { title: 'Aviso de Privacidad' })
+});
+
 module.exports = router;

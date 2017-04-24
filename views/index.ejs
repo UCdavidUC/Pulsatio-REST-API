@@ -3,8 +3,23 @@
   <head>
     <title><%= title %></title>
     <%- include('partials/header') %>
+    <style>
+      #map {
+          height: 400px;
+          width: 100%;
+      }
+    </style>
   </head>
   <body>
-    <%- include('external/navigation') %>
+    <%- include('partials/navigation') %>
+    <div class="container">
+          <div class="tab-content">
+              <%- include('partials/_inicio') %>
+              <%- include('partials/_funcionalidad') %>
+              <%- include('partials/_convenios') %>
+              <%- include('partials/_contacto') %>
+          </div>
+      </div>
+      <%- include('partials/footer') %>
   </body>
 </html>

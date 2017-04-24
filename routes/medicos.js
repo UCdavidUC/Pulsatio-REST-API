@@ -27,6 +27,7 @@ router.get('/:id', function(req, res, next) {
   Medico.findById(req.params.id, function(err, post) {
     if(err) return next(err);
     res.json(post);
+    res.redirect('/dashboard');
   });
 });
 

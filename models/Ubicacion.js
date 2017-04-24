@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var CedeHospitalariaSchema = new mongoose.Schema({
+var UbicacionSchema = new mongoose.Schema({
     _id         : Number,
     nombre      : String,
     abreviatura : String,
@@ -19,4 +19,4 @@ var CedeHospitalariaSchema = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model('CedeHospitalaria', CedeHospitalariaSchema);
+module.exports = mongoose.model('Ubicacion', UbicacionSchema);

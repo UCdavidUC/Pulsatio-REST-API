@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <title><%= title %></title>
+        <%- include('../layouts/headers.html') %>
+    </head>
+
+    <body>
+        <!-- Navigation -->
+        <%- include('../layouts/navigation.html') %>
+
+        <div class="container">
+            <div class="page-header">
+                <h1><%= title %>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/nueva_ubicacion" class="btn btn-primary">Añadir ubicación</a>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Añadir ubicación chr<span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="/editar_ubicacion">INCMNZ</a></li>
+                    <li><a href="/editar_ubicacion">Consultorio Ángeles del Pedregal</a></li>
+                </ul>
+            </div>
+            <br/><br/>
+            <div class="pane-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="location_1">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="true" aria-controls="collapse_1">
+                                INCMNSZ
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="location_1">
+                        <div class="panel-body">
+                            <h4>Instituto Nacional de Ciencias Médicas y Nutrición Salvador Zubirán</h4>
+                            <p><strong>Decripción: </strong>El Instituto Nacional de Ciencias Médicas y Nutrición Salvador Zubirán, INCMNSZ
+                                Es uno de los Institutos Nacionales de Salud de la Secretaría de Salud de México que brinda atención médica de tercer nivel a adultos.
+                                El 12 de octubre de 1946 fue inaugurado bajo el nombre de Hospital de Enfermedades de la Nutrición. En 1978, al extender sus funciones en otros campos y como homenaje a su fundador, cambió su nombre a Instituto Nacional de Nutrición Salvador Zubirán, la denominación que utilizó hasta junio de 2000, fecha en la que incorporó a su nombre los términos de Ciencias Médicas, para subrayar su carácter de centro de conocimiento y desarrollo de la medicina con un enfoque integral.
+                                El INCMNSZ fue concebido desde sus orígenes como una instancia de respuesta especializada a las necesidades de salud de la población en materia de nutrición y medicina interna. Está orientado a promover asistencia médica de calidad, tanto en su dimensión científico-técnica como en la interpersonal, y tiene como eje primario la atención centrada en el paciente, en un marco de calidad, seguridad y excelencia.
+                                En el INCMNSZ se desarrolla conocimiento de alta especialidad a través de la investigación, la cual, a su vez, se traduce en la formación de recursos humanos en salud y se aplica en la asistencia médica.
+                                La visión es ser líderes en la generación y aplicación del conocimiento innovador. El propósito, que la calidad y seguridad en la atención médica que se ofrece, sea un estándar de referencia nacional e internacional..</p>
+                            <p><strong>Dirección: </strong>Avenida Vasco de Quiroga No.15, Colonia Belisario Domínguez Sección XVI, Delegación Tlalpan C.P.14080, México Distrito Federal, MEXICO</p>
+                            <p><strong>Consultorio: </strong>Consultorio No. 4, torre B</p>
+                            <p><strong>Teléfono: </strong>55849314</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="location_2">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" href="#collapse_2" aria-controls="collapse_2">
+                                Consultorio Ángeles del Pedregal
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="location_2">
+                        <div class="panel-body">
+                            <h4>Instituto Nacional de Ciencias Médicas y Nutrición Salvador Zubirán</h4>
+                            <p><strong>Decripción: </strong>Grupo Empresarial Angeles. Empresa 100% mexicana integrada al esfuerzo Nacional para el desarrollo, participa en sectores que son pilares del país, como Salud, Turismo, Finanzas y Comunicación, generando valor económico e innumerables fuentes de trabajo. www.grupoempresarialangeles.com</p>
+                            <p><strong>Dirección: </strong>Camino a Sta. Teresa 1055, Héroes de Padierna, 10700 Magdalena Contreras, CDMX</p>
+                            <p><strong>Consultorio: </strong>Consultorio No. 4, torre B</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

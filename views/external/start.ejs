@@ -2,10 +2,10 @@
 <html ng-app="app">
     <head>
         <title>Pulsatio</title>
-        <%- include('header') %>
+        <%- include('../partials/header') %>
     </head>
     <body>
-        <%- include('../external/navigation') %>
+        <%- include('navigation') %>
         <ng-view></ng-view>
         <!-- MD Login Template -->
         <script type="text/ng-template" id="/login.html">
@@ -92,22 +92,10 @@
                             <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="apellido_m" class="col-sm-3 control-label">Apellido Materno</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido_m" class="col-sm-3 control-label">Apellido Materno</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="apellido_m" ng-model="newMedico.apellido_m"/>
-                        </div>
-                    </div>
                     <div class="col-sm-2 col-sm-offset-5">
                         <div class="btn-group btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button type="submit" ng-model="newMedico" ng-click="save(newMedico)" class="btn btn-default" disa>Enviar</button>
+                                <button type="submit" ng-model="newMedico" ng-click="save(newMedico)" class="btn btn-default">Enviar</button>
                             </div>
                         </div>
                     </div>
@@ -203,5 +191,7 @@
                     });
                 }]);
         </script>
+
+        <%- include('../partials/footer') %>
     </body>
 </html>
