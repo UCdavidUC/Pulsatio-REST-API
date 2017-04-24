@@ -8,5 +8,10 @@ router.get('/', function(req, res, next) {
     Ubicacion.find(function(err, post) {
         if(err) return next(err);
         res.json(post);
-    })
-})
+    });
+});
+
+/* POST medicos */
+router.post('/', function(req, res, next) {
+    //Ubicacion.create()
+});
