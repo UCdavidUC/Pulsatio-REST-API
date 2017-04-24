@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/highcharts-more.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    </head>
-    <body>
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-        <script>
-            var ranges = [
+<head>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+</head>
+<body>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <script>
+
+    var ranges = "<%= rng %>";
+    var averages = "<%= avg %>";
+
+
+        var ranges = [
         [1246406400000, 14.3, 27.7],
         [1246492800000, 14.5, 27.8],
         [1246579200000, 15.5, 29.6],
@@ -40,8 +45,8 @@
         [1248825600000, 10.8, 17.8],
         [1248912000000, 11.8, 18.5],
         [1248998400000, 10.8, 16.1]
-    ],
-    averages = [
+        ],
+        averages = [
         [1246406400000, 21.5],
         [1246492800000, 22.1],
         [1246579200000, 23],
@@ -73,54 +78,55 @@
         [1248825600000, 14.4],
         [1248912000000, 15],
         [1248998400000, 13.6]
-    ];
+        ];
 
 
-Highcharts.chart('container', {
+        Highcharts.chart('container', {
 
-    title: {
-        text: 'Ritmo Cardiaco'
-    },
+            title: {
+                text: 'Ritmo Cardiaco'
+            },
 
-    xAxis: {
-        type: 'datetime'
-    },
+            xAxis: {
+                type: 'datetime'
+            },
 
-    yAxis: {
-        title: {
-            text: null
-        }
-    },
+            yAxis: {
+                title: {
+                    text: null
+                }
+            },
 
-    tooltip: {
-        crosshairs: true,
-        shared: true,
-        valueSuffix: ' lpm'
-    },
+            tooltip: {
+                crosshairs: true,
+                shared: true,
+                valueSuffix: ' lpm'
+            },
 
-    legend: {
-    },
+            legend: {
+            },
 
-    series: [{
-        name: 'Frecencia',
-        data: averages,
-        zIndex: 1,
-        marker: {
-            fillColor: 'white',
-            lineWidth: 2,
-            lineColor: Highcharts.getOptions().colors[0]
-        }
-    }, {
-        name: 'Frecuencia min/max',
-        data: ranges,
-        type: 'arearange',
-        lineWidth: 0,
-        linkedTo: ':previous',
-        color: Highcharts.getOptions().colors[0],
-        fillOpacity: 0.3,
-        zIndex: 0
-    }]
-});
-        </script>
-    </body>
+            series: [{
+                name: 'Frecuencia',
+                data: averages,
+                zIndex: 1,
+                color: 'red',
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 2,
+                    lineColor: '#FF323A'
+                }
+            }, {
+                name: 'Frecuencia min/max',
+                data: ranges,
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: '#FF323A',
+                fillOpacity: 0.3,
+                zIndex: 0
+            }]
+        });
+    </script>
+</body>
 </html>
