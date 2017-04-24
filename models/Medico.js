@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
       SALT_WORK_FACTOR = 10;
 
 var MedicoSchema = new Schema({
-    _id       : { type: String, required: true, index: { unique: true } },
+    _id         : { type: String, required: true, index: { unique: true } },
     contrasena  : { type: String, required: [true, 'Password is too short!'] },
     cedula      : String,
     nombre      : String,
