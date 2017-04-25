@@ -33,7 +33,7 @@ router.get('/show_universidades', function(req, res, next) {
 
 /* GET universidades page */
 router.get('/dashboard', function(req, res, next) {
-  res.render('internal/dashboard', { title: 'Dashboard' } )
+  res.render('internal/dashboard', { title: 'Dashboard', avg: '', rng: '' } )
 });
 
 /* GET privacy policy */
