@@ -50,6 +50,7 @@ router.get('/dashboard/:id', function(req, res, next) {
   Paciente.findById(req.params.id, function(err, post) {
     if(err) return next(err);
     res.render('internal/dashboard', { avg : post.averages, rng : post.ranges } );
+    res.json(post);
   });
 });
 

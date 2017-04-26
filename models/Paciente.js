@@ -52,7 +52,7 @@ var PacienteSchema = new mongoose.Schema({
             descripcion : String
         }
     },
-    consulta: {
+    consulta: [{
         _id     : String,
         date_time   : {
             type    : Date,
@@ -63,14 +63,14 @@ var PacienteSchema = new mongoose.Schema({
         tratamiento             : String,
         anotaciones             : String,
         exploracion_fisica      : String
-    },
-    medicos_tratantes   : {
+    }],
+    medicos_tratantes   : [{
         _id_medico          : String,
         updated_at : {
             type    : Date,
             default : Date.now
         }
-    }
+    }]
 });
 
 module.exports = mongoose.model('Paciente', PacienteSchema);
