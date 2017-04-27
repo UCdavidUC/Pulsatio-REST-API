@@ -130,5 +130,18 @@
             }]
         });
     </script>
+    <script type="text/javascript">
+        angular.module('app', ['ngRoute', 'ngResource'])
+            .factory('Pacientes', ['$resource', function($resource) {
+                return $resource('/pacientes/:_id', null, {
+                    'update': { method: 'PUT' }
+                });
+            }])
+            .controller('DashboardController', ['$scope', 'Pacientes', function($scope, Pacientes) {
+                $scope.pacientes = Pacientes.query();
+
+                
+            }]);
+    </script>
 </body>
 </html>

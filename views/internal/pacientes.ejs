@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
     <head>
         <title>Pacientes</title>
         <%- include('../partials/header') %>
@@ -11,8 +11,89 @@
                 <h1>Pacientes</h1>
             </div>
             <ng-view></ng-view>
+            <script type="text/ng-template" id="/nuevoPaciente.html">
+                <h2>Agregar Paciente</h2>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-4 col-md-3 control-label" ng-model="newPatient.email" id="email">Email</label>
+                    </div>
+                </div>
+            </script>
             <script type="text/ng-template" id="/verPacientes.html">
-                
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label for="buscar">Buscar: </label>
+                        <input type="text" class="form-control" id="buscar" placeholder="Buscar" ng-model="search.name" />
+                    </div>
+                </div>
+                <br/>
+                <div>
+                    <div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Fecha de Nacimiento</th> 
+                                    <th>Estatura</th>
+                                    <th>Peso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paciente in Patients | filter:search">
+                                    <th ng-show="!editing[$index]" href="#/{{paciente._id}}">{{paciente._id}}</td>
+                                    <td ng-show="!editing[$index]" href="#/{{paciente._id}}">{{paciente.nombre}}</td>
+                                    <td ng-show="!editing[$index]" href="#/{{paciente._id}}">{{paciente.apellido_p}} {{paciente.appellido_m}}</td>
+                                    <td>{{paciente.fecha_nac}}</td>
+                                    <td>{{paciente.estatura}}</td>
+                                    <td>{{paciente.peso}}</td>
+                                </tr>
+                            </tbody>
+                            <br/>
+                        </table>
+                        <div class="col-sm-4 col-sm-offset-8 col-md-3 col-md-offset-9">
+                            <a class="btn btn-success btn-block" href="#/new">Agregar Paciente</a>
+                        </div>
+                    </div>
+                </div>
+            </script>
+            <script type="text/ng-template" id="/editarPaciente.html">
+            
+            </script>
+            <script type="text/javascript">
+                angular.module('app', ['ngRoute', 'ngResource'])
+                    .factory('Pacientes', ['$resource', function($resource) {
+                        return $resource('/pacientes/:_id', null, {
+                            'update': { method: 'PUT' }
+                        });
+                    }])
+                    .controller('ViewPatientsController', ['$scope', 'Pacientes', function($scope, Pacientes) {
+                        $scope.pacientes = Pacientes.query();
+                        $scope.editing = [];
+                    }])
+                    .controller('EditPatient', ['$scope', 'Pacientes', function($scope, Pacientes) {
+                        Sscope.pacientes = Pacientes.query();
+                        $scope.editing = [];
+                    }])
+                    .controller('RegisterPatient', ['$scope', 'Pacientes', function($scope, Pacientes) {
+                        $scope.pacientes = Pacientes.query();
+                        $scope.editing = [];
+
+
+
+                    }])
+                    .config(['$routeProvider', function($routeProvider) {
+                        $routeProvider.when('/', {
+                            templateUrl : '/verPacientes.html',
+                            controller : 'ViewPatientsController'
+                        }).when('/edit', {
+                            templateUrl: '/editarPaciente.html',
+                            controller: 'EditPatient'
+                        }).when('/new', {
+                            templateUrl: '/'
+                        });
+                    }]);
             </script>
         </div>
     </body>

@@ -42,8 +42,13 @@ router.get('/privacy', function(req, res, next) {
 });
 
 /* GET profile page */
-router.get('/internal/profile', function(req, res, next) {
-  res.render('/profile')
+router.get('/profile', function(req, res, next) {
+  res.render('internal/profile');
+});
+
+/* GET patients page */
+router.get('/patients', function(req, res, next) {
+  res.render('internal/pacientes');
 });
 
 module.exports = router;

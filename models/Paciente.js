@@ -1,11 +1,15 @@
 var mongoose = require('mongoose');
 
 var PacienteSchema = new mongoose.Schema({
-    _email      : String,
+    _id      : String,
     contrasena  : String,
     nombre      : String,
     apellido_p  : String,
     apellido_m  : String,
+    edad        : Number,
+    peso        : Number,
+    fecha_nac   : Date,
+    genero      : String,
     celular     : Number,
     telefono    : Number,
     updated_at  : {
@@ -16,7 +20,6 @@ var PacienteSchema = new mongoose.Schema({
     averages: [[Number]],
     expediente  : {
         _id             : String,
-        fecha_nac       : Date,
         genero          : String,
         origen          : String,
         edo_civil       :String,
