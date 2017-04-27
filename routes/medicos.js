@@ -22,12 +22,23 @@ router.post('/', function(req, res, next) {
   });
 });
 
+/* User validation post request */
+router.post('/:id', function(req, res, next) {
+  Medico.findOne(req.body._id, function(err, post) {
+    if(err) throw err;
+    Medico.comparePassword(req.body.password, function(err, isMatch) {
+      res.json(post);
+      res.send(req.body);
+    });
+  });
+});
+
 /* GET /medicos/:id */
 router.get('/:id', function(req, res, next) {
   Medico.findById(req.params.id, function(err, post) {
     if(err) return next(err);
     res.json(post);
-    res.redirect('/dashboard');
+    //res.send(res.json);
   });
 });
 
@@ -44,6 +55,7 @@ router.delete('/:id', function(req, res, next) {
   Medico.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if(err) return next(err);
     res.json(post);
+    res.send('Hola Dr. ' + post._id);
   });
 });
 

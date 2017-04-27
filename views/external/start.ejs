@@ -3,7 +3,6 @@
     <head>
         <title>Pulsatio</title>
         <%- include('../partials/header') %>
-        <script src="/js/access-controller" type="text/css"></script>
     </head>
     <body>
         <%- include('navigation') %>
@@ -18,13 +17,13 @@
                     <div class="form-group">
                         <label for="username" class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="username" ng-model="medico.username"/>
+                            <input type="text" class="form-control" id="username" ng-model="medico.username" required="required"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-3 control-label">Contraseña</label>
                         <div class="col-sm-4">
-                            <input type="password" class="form-control" id="password" ng-model="medico.contrasena"/>
+                            <input type="password" class="form-control" id="password" ng-model="medico.password" required="required"/>
                         </div>
                     </div>
                     <div class="col-sm-4 col-sm-offset-3">
@@ -33,7 +32,7 @@
                                 <a href="#/register" class="btn btn-warning" value="register">Registrarse</a>
                             </div>
                             <div class="btn-group" role="group">
-                                <button ng-click="find()" class="btn btn-success">Entrar</button>
+                                <button type="submit" ng-model="medico" ng-click="find()" class="btn btn-success">Entrar</button>
                             </div>
                         </div>
                     </div>
@@ -96,7 +95,7 @@
                     <div class="col-sm-2 col-sm-offset-5">
                         <div class="btn-group btn-group-justified" role="group">
                             <div class="btn-group" role="group">
-                                <button type="submit" ng-model="newMedico" ng-click="save(newMedico)" class="btn btn-default">Enviar</button>
+                                <div id="continueButton"><button type="submit" ng-model="newMedico" ng-click="save(newMedico)" class="btn btn-default">Enviar</button></div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +103,107 @@
             </div>
         </script>
 
-        <script type="text/javascript" src="access_controller.js"></script>
+        <script type="text/javascript">
+            angular.module('app', ['ngRoute', 'ngResource'])
+            .factory('Service', function() {
+                var user = {}
+                function set(data) {
+                    user = data;
+                }
+                function get() {
+                    return user;
+                }
+                return { set: set, get: get };
+            })
+            .factory('Medicos', ['$resource', function($resource){
+                return $resource('/medicos/:_id', null, {
+                    'update': { method: 'PUT' }
+                });
+            }])
+            .controller('RegisterController', ['$scope', 'Medicos', function($scope, Medicos){
+                $scope.medicos = Medicos.query();
+
+                // Email validation
+                $("#email").keyup(function emailValidation() {
+                    var email = $("#email").val();
+                    var pwd = $('#contrasena');
+                    var cf = $('#confirmacion');
+                    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    if(regex.test(email)) {
+                        $('#emailAlert').html('Email válido.');
+                        $('#emailAlert').css('color', 'green');
+                    } else {
+                        $('#emailAlert').html('<strong>Error</strong>: Verifique que su correo electrónico esté escrito correctamente: ' + email);
+                        $('#emailAlert').css('color', 'red');
+                    }
+                });
+
+                // Password string length validation
+                $('#contrasena').keyup(function passwordConforms() {
+                    
+                });
+
+                // Password match validation
+                $('#confirmacion').keyup(function passwordValidation() {
+                    var pwd = $('#contrasena').val();
+                    console.log(pwd);
+                    var conf = $('#confirmacion').val();
+                    if(pwd===conf) {
+                        $('#passwordConfirmationAlert').html('Las contrase&ntilde;as coinciden.');
+                        $('#passwordConfirmationAlert').css('color', 'green');
+                    } else {
+                        $('#passwordConfirmationAlert').html('<strong>Error</strong>: Las contrase&ntilde;as no coinciden.');
+                        $('#passwordConfirmationAlert').css('color', 'red');
+                    }
+                });
+
+                // Save medico into database
+                $scope.save = function(newMedico) {
+                    if(!$scope.newMedico || $scope.newMedico.length < 1) return;
+                    var medico = new Medicos({
+                        _id: newMedico.email, 
+                        contrasena: newMedico.contrasena,
+                        cedula: newMedico.cedula,
+                        nombre: newMedico.nombre,
+                        apellido_p: newMedico.apellido_p,
+                        apellido_m: newMedico.apellido_m
+                    });
+                    medico.$save(function(){
+                        if ($scope.medicos.push(medico)) {
+                            //$window.location.href = '/dashboard';
+                            $('#continueButton').html('<a href="/login" class="btn btn-success" value="register">Continuar</a>');
+                        }
+                        $scope.newMedico = '';
+                    });
+                }
+            }])
+            .controller('LoginController', ['$scope', '$routeParams', 'Medicos', 'Service', '$location', '$window', function($scope, $routeParams, Medicos, Service, $location, $window) {
+                $scope.medico = Medicos.get({
+                    id: $routeParams.id
+                });
+                $scope.find = function() {
+                    var res = Medicos.get({
+                        _id: $scope.medico.username
+                    }, $scope.medico, function() {
+                        $location.url('/');
+                        //$window.location.href = '/dashboard';
+                    });
+                    Service.set(res);
+                    console.log(res);
+                    $window.location.href = '/dashboard';
+                    
+                };
+            }])
+            .config(['$routeProvider', function($routeProvider) {
+                $routeProvider.when('/register', {
+                    templateUrl: '/register.html',
+                    controller: 'RegisterController'
+                }).when('/', {
+                    templateUrl: '/login.html',
+                    controller: 'LoginController'
+                });
+            }]);
+        </script>
 
         <%- include('../partials/footer') %>
     </body>

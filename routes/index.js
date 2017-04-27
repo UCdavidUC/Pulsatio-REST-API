@@ -41,4 +41,9 @@ router.get('/privacy', function(req, res, next) {
   res.render('legal/licencing', { title: 'Aviso de Privacidad' })
 });
 
+/* GET profile page */
+router.get('/internal/profile', function(req, res, next) {
+  res.render('/profile')
+});
+
 module.exports = router;

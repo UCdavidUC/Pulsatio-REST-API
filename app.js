@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cryptojs = require('crypto-js');
+var session = require('express-session');
 
 var uri = 'mongodb://localhost/pulsatiorestapi';
 

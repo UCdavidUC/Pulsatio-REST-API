@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Dashboard</title>
+    <%- include('../partials/header') %>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -12,7 +14,6 @@
 
     var ranges = "<%= rng %>";
     var averages = "<%= avg %>";
-
 
         var ranges = [
         [1246406400000, 14.3, 27.7],

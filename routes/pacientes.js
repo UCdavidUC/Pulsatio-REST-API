@@ -54,4 +54,24 @@ router.get('/dashboard/:id', function(req, res, next) {
   });
 });
 
+/* User Authentication */
+/* router.get('/:credentials', function(req, res) {
+  Paciente.findOne(req.param.credentials[0], function(err, paciente) {
+    if(err) throw err;
+
+    paciente.comparePassword(req.param.credentials[1], function(err, isMatch) {
+      if(err) {
+        throw err;
+      } else {
+        console.log('Paciente válido.');
+        res.send({
+          "id": req.param.credentials[0], 
+          "password": req.param.credentials[1]
+        }, isMatch);
+      }
+    });
+
+  });
+}); */
+
 module.exports = router;
